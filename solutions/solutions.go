@@ -7,13 +7,13 @@ import (
 	"time"
 )
 
-type solution func() string
+type solutionFunc func() string
+
+var solutionsMap = map[string]solutionFunc{
+	"1": problem1,
+}
 
 func Run(problems []string) {
-	solutionsMap := map[string]solution{
-		"1": problem1,
-	}
-
 	if len(problems) == 0 {
 		problems = slices.Collect(maps.Keys(solutionsMap))
 	}
@@ -28,13 +28,60 @@ func Run(problems []string) {
 
 		fmt.Printf("======== Problem %s ========\n", p)
 
-		soln, elapsed := runSolution(s)
+		solutionString, elapsed := runSolution(s)
 
-		fmt.Printf("%s (completed in %s)\n\n", soln, elapsed)
+		fmt.Printf("%s (completed in %s)\n\n", solutionString, elapsed)
 	}
 }
 
-func runSolution(s solution) (string, time.Duration) {
+func Benchmark(problem string) {
+	solutionFunc, ok := solutionsMap[problem]
+
+	if !ok {
+		fmt.Printf("No solution available for problem %s\n\n", problem)
+	}
+
+	_, firstElapsed := runSolution(solutionFunc)
+
+	executions := 1
+
+	min := firstElapsed
+	max := firstElapsed
+	sum := firstElapsed
+
+	const (
+		maxDuration   = 5 * time.Minute
+		maxExecutions = 1000
+	)
+
+	for executions < maxExecutions && sum+max < maxDuration {
+		_, e := runSolution(solutionFunc)
+
+		sum += e
+
+		if e < min {
+			min = e
+		}
+
+		if e > max {
+			max = e
+		}
+
+		executions++
+	}
+
+	ave := sum / time.Duration(executions)
+
+	fmt.Printf("Problem %s benchmark\n"+
+		"\tRan solution %d times\n"+
+		"\tMin: %s\n"+
+		"\tAve: %s\n"+
+		"\tMax: %s\n",
+		problem, executions, min, ave, max,
+	)
+}
+
+func runSolution(s solutionFunc) (string, time.Duration) {
 	startTime := time.Now()
 
 	soln := s()
