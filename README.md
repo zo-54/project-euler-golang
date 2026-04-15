@@ -4,6 +4,8 @@
 
 Since I began working on these problems around 2019, I have made significant progress on the archive using JavaScript/TypeScript. While I am still working on that project, I have decided to create a fresh account and work through the problems again from the beginning, this time using Go.
 
+I am also placing a heavy precedence on making the solutions fast.
+
 ## Usage
 
 ### Run the program
