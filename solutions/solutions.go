@@ -34,6 +34,17 @@ func Run(problems []string) {
 
 		elapsed := time.Since(startTime)
 
-		fmt.Printf("%s (completed in %dms)\n\n", soln, elapsed.Milliseconds())
+		var elapsedString string
+
+		switch {
+		case elapsed < time.Millisecond:
+			elapsedString = fmt.Sprintf("%.3fµs", float64(elapsed.Nanoseconds())/1000)
+		case elapsed < time.Second:
+			elapsedString = fmt.Sprintf("%.3fms", float64(elapsed.Microseconds())/1000)
+		default:
+			elapsedString = fmt.Sprintf("%.3fs", float64(elapsed.Milliseconds())/1000)
+		}
+
+		fmt.Printf("%s (completed in %s)\n\n", soln, elapsedString)
 	}
 }
