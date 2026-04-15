@@ -25,11 +25,9 @@ func isPrime(n uint64) bool {
 		return false
 	}
 
-	for i := first100Primes[99] - first100Primes[99]%6; i <= sqrt(n)+1; i += 6 {
-		for _, j := range []uint64{i - 1, i + 1} {
-			if n%j == 0 {
-				return false
-			}
+	for i := first100Primes[99] + 2; i <= sqrt(n); i += 2 {
+		if n%i == 0 {
+			return false
 		}
 	}
 
@@ -44,26 +42,24 @@ func getPrimeFactors(n uint64) []uint64 {
 			n = n / p
 			primeFactors = append(primeFactors, p)
 
-			if isPrime(n) {
-				primeFactors = append(primeFactors, n)
+			if n == 1 {
 				return primeFactors
 			}
 		}
 	}
 
-	for i := first100Primes[99] + 2; i < n; i += 2 {
+	for i := first100Primes[99] + 2; i <= n; i += 2 {
 		for n%i == 0 {
 			n = n / i
 			primeFactors = append(primeFactors, i)
 
-			if isPrime(n) {
-				primeFactors = append(primeFactors, n)
+			if n == 1 {
 				return primeFactors
 			}
 		}
 	}
 
-	return primeFactors
+	panic("Did not get all prime factors")
 }
 
 func sqrt(n uint64) uint64 {
@@ -77,6 +73,10 @@ func sqrt(n uint64) uint64 {
 		nOverR := n / maybeRoot
 		nextNOverR := (nOverR + maybeRoot) / 2
 		maybeRoot = n/nextNOverR + 1
+	}
+
+	for maybeRoot*maybeRoot > n {
+		maybeRoot--
 	}
 
 	return maybeRoot
