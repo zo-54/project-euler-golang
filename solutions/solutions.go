@@ -11,6 +11,7 @@ type solutionFunc func() string
 
 var solutionsMap = map[string]solutionFunc{
 	"1": problem1,
+	"2": problem2,
 }
 
 func Run(problems []string) {
