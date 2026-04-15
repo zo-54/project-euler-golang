@@ -28,7 +28,6 @@ func isPrime(n uint64) bool {
 	for i := first100Primes[99] - first100Primes[99]%6; i <= sqrt(n)+1; i += 6 {
 		for _, j := range []uint64{i - 1, i + 1} {
 			if n%j == 0 {
-
 				return false
 			}
 		}
@@ -68,17 +67,19 @@ func getPrimeFactors(n uint64) []uint64 {
 }
 
 func sqrt(n uint64) uint64 {
-	if n < uint64(4) {
+	if n < 4 {
 		return 1
 	}
 
-	r := uint64(2)
+	var maybeRoot uint64 = 2
 
-	for n/r-r > 1 {
-		r = 2 * n * r / (r*r + n)
+	for (maybeRoot+1)*(maybeRoot+1) < n {
+		nOverR := n / maybeRoot
+		nextNOverR := (nOverR + maybeRoot) / 2
+		maybeRoot = n/nextNOverR + 1
 	}
 
-	return r
+	return maybeRoot
 }
 
 func triangleNumber(n int) int {
