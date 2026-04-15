@@ -12,8 +12,8 @@ func main() {
 	shouldBenchmark := false
 	problems := []string{}
 
-	benchmarkRegex := regexp.MustCompile("^(?:--bench|-b)$")
-	problemRegex := regexp.MustCompile("^\\d+$")
+	benchmarkRegex := regexp.MustCompile(`^(?:--bench|-b)$`)
+	problemRegex := regexp.MustCompile(`^\d+$`)
 
 	for _, arg := range os.Args[1:] {
 		switch {
