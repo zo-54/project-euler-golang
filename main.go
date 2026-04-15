@@ -1,7 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"os"
+
+	"project-euler-golang/solutions"
+)
 
 func main() {
-	fmt.Println("Hello, world!")
+	solutions.Run(os.Args[1:])
 }

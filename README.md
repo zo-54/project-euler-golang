@@ -6,14 +6,26 @@ Since I began working on these problems around 2019, I have made significant pro
 
 ## Usage
 
-Run the program:
+### Run the program
 
 ```bash
-go run .
+go run . <problem numbers (optional)>
 ```
 
-Build the program:
+By default, the program will output all solutions. Providing problem numbers will limit the program to only outputting the corresponding solutions.
+
+Problem numbers that correspond to problems that I have not yet solved will result in a message stating that there is no solution available for the given problem.
+
+#### Examples
+
+- To get all solutions: `go run .`
+- To get the solution for problem 7: `go run . 7`
+- To get the solutions for problem 35, 38, and 42: `go run . 35 38 42`
+
+### Build the program
 
 ```bash
 go build .
 ```
+
+The resulting executable can be used in place of `go run` when running the program.
