@@ -28,23 +28,18 @@ func Run(problems []string) {
 
 		fmt.Printf("======== Problem %s ========\n", p)
 
-		startTime := time.Now()
+		soln, elapsed := runSolution(s)
 
-		soln := s()
-
-		elapsed := time.Since(startTime)
-
-		var elapsedString string
-
-		switch {
-		case elapsed < time.Millisecond:
-			elapsedString = fmt.Sprintf("%.3fµs", float64(elapsed.Nanoseconds())/1000)
-		case elapsed < time.Second:
-			elapsedString = fmt.Sprintf("%.3fms", float64(elapsed.Microseconds())/1000)
-		default:
-			elapsedString = fmt.Sprintf("%.3fs", float64(elapsed.Milliseconds())/1000)
-		}
-
-		fmt.Printf("%s (completed in %s)\n\n", soln, elapsedString)
+		fmt.Printf("%s (completed in %s)\n\n", soln, elapsed)
 	}
+}
+
+func runSolution(s solution) (string, time.Duration) {
+	startTime := time.Now()
+
+	soln := s()
+
+	elapsed := time.Since(startTime)
+
+	return soln, elapsed
 }
