@@ -15,6 +15,7 @@ var solutionsMap = map[string]solutionFunc{
 	"3": problem3,
 	"4": problem4,
 	"5": problem5,
+	"6": problem6,
 }
 
 func Run(problems []string) {
@@ -55,7 +56,7 @@ func Benchmark(problem string) {
 
 	const (
 		maxDuration   = 5 * time.Minute
-		maxExecutions = 1000
+		maxExecutions = 1000000
 	)
 
 	for executions < maxExecutions && sum+max < maxDuration {
