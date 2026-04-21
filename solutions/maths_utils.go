@@ -25,7 +25,7 @@ func isPrime(n uint64) bool {
 		return false
 	}
 
-	for i := first100Primes[99] + 2; i <= sqrt(n); i += 2 {
+	for i := first100Primes[99] + 2; i <= isqrt(n); i += 2 {
 		if n%i == 0 {
 			return false
 		}
@@ -62,35 +62,26 @@ func getPrimeFactors(n uint64) []uint64 {
 	panic("Did not get all prime factors")
 }
 
-func sqrt(n uint64) uint64 {
-	if n < 4 {
-		return 1
+// uint64 square root function. Returns largest integer less than or equal to the root of the input number.
+func isqrt(n uint64) uint64 {
+	var (
+		x uint64 = n
+		y uint64 = 1
+	)
+
+	for x > y {
+		x = (x + y) / 2
+		y = n / x
 	}
 
-	var maybeRoot uint64 = 2
-
-	for (maybeRoot+1)*(maybeRoot+1) < n {
-		nOverR := n / maybeRoot
-		nextNOverR := (nOverR + maybeRoot) / 2
-		maybeRoot = n/nextNOverR + 1
-	}
-
-	for maybeRoot*maybeRoot > n {
-		maybeRoot--
-	}
-
-	return maybeRoot
+	return x
 }
 
 func triangleNumber(n int) int {
 	return n * (n + 1) / 2
 }
 
-/*
- * Fast doubling Fibonacci algorithm
- * Based on JavaScript version by Project Nayuki
- * https://www.nayuki.io/page/fast-fibonacci-algorithms
- */
+// Fast doubling Fibonacci algorithm (based on JavaScript version by Project Nayuki: https://www.nayuki.io/page/fast-fibonacci-algorithms)
 func fibonacci(n uint64) uint64 {
 	v, _ := fib(n)
 
