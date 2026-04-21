@@ -17,6 +17,7 @@ var solutionsMap = map[string]solutionFunc{
 	"5": problem5,
 	"6": problem6,
 	"7": problem7,
+	"8": problem8,
 }
 
 func Run(problems []string) {
