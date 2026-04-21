@@ -17,14 +17,14 @@ var first100Primes = []uint64{
 var (
 	limit      uint64 = 30 << 12
 	lastLimit  uint64 = uint64(len(first100Primes))
-	primesList        = slices.Clone(first100Primes)
+	primesList        = first100Primes[:]
 )
 
 // Reset variables for benchmarking purposes
 func resetMaths() {
 	limit = 30 << 17
 	lastLimit = uint64(len(first100Primes))
-	primesList = slices.Clone(first100Primes)
+	primesList = first100Primes[:]
 }
 
 // Based on the Sieve of Atkin (https://en.wikipedia.org/wiki/Sieve_of_Atkin)
