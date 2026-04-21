@@ -56,7 +56,7 @@ func Benchmark(problem string) {
 
 	const (
 		maxDuration   = 5 * time.Minute
-		maxExecutions = 1000000
+		maxExecutions = 1000
 	)
 
 	for executions < maxExecutions && sum+max < maxDuration {
@@ -73,6 +73,8 @@ func Benchmark(problem string) {
 		}
 
 		executions++
+
+		resetMaths()
 	}
 
 	ave := sum / time.Duration(executions)
